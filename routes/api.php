@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\Enseignantcontroller;
 use App\Http\Controllers\API\Classecontroller;
+use App\Http\Controllers\API\Etudiantcontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +34,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('classe/details',[Classecontroller::class,'details']);
     Route::get('classe/search',[Classecontroller::class,'search']);
     Route::post('classe/update',[Classecontroller::class,'update']);
+
+    //route vers l'etudiant
+    Route::post('etudiant/create',[Etudiantcontroller::class,'create']);
+    Route::get('etudiant/details',[Etudiantcontroller::class,'details']);
+    Route::get('etudiant/search',[Etudiantcontroller::class,'search']);
+    
 
 
 
