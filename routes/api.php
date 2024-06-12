@@ -5,6 +5,8 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\Enseignantcontroller;
 use App\Http\Controllers\API\Classecontroller;
 use App\Http\Controllers\API\Etudiantcontroller;
+use App\Http\Controllers\API\Notecontoller;
+use App\Http\Controllers\API\Matierecontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,6 +41,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('etudiant/create',[Etudiantcontroller::class,'create']);
     Route::get('etudiant/details',[Etudiantcontroller::class,'details']);
     Route::get('etudiant/search',[Etudiantcontroller::class,'search']);
+    Route::post('etudiant/update',[Etudiantcontroller::class,'update']);
+
+    //route vers les note
+    Route::post('note/create',[Notecontoller::class,'create']);
+
+    //route vers les matiere
+    Route::post('matiere/create',[Matierecontroller::class,'create']);
+    Route::post('matiere/update',[Matierecontroller::class,'update']);
+    Route::get('matiere/details',[Matierecontroller::class,'details']);
+    Route::get('matiere/search',[Matierecontroller::class,'search']);
+
     
 
 

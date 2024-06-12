@@ -10,10 +10,11 @@ class Note extends Model
 
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'etudiant_id',
         'matiere_id',
         'classe_id',
         'note',
+        'unique_note'
         
     ];
     protected $guarded=['id','created_ad'];
@@ -26,8 +27,10 @@ class Note extends Model
         return $this->belongsTo(matiere::class,'matiere_id');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
+    public function etudiant(){
+        return $this->belongsTo(Etudiant::class,'etudiant_id');
     }
+
+   
     
 }

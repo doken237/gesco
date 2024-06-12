@@ -104,7 +104,9 @@ class Etudiantcontroller extends Controller
                     
                 ]);
                 die();
+
             }
+            
            return response()->json([
             'message'=>'Affichages des details',
             'name'=>$etudiant,
@@ -120,4 +122,71 @@ class Etudiantcontroller extends Controller
    
         }
     }
+   
+    public function update(Request $request){
+        try{
+            $data=$request->all();
+            $email=$request['email'];
+            $etudiant=Etudiant::find($email);
+            $id=Etudiant::where('email',$request['email'])->first(['id']);
+            $tel=Etudiant::where('telephone',$request['telephone'])->first(['id']);
+            $email=Etudiant::where('email',$request['email'])->first(['id']);
+
+            if ((!$id)){
+                return response()->json([
+                    'message'=>'Cette enseignant n\'existe pas!',
+                    'status'=>false,
+                ]);
+                die();
+            }
+            // verification de l'adresse Email
+
+            if (isset($request['email'])) {
+                if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
+                    return response()->json([
+                        'message'=>'l\'email entree n\'est pas valide',
+                        'status'=>false,  
+                    ]);
+                    die();
+            }
+            }
+            if ((Auth::user()->id)!=2) {
+                return response()->json([
+                    'message'=>'seul la secretaire peut modifier un etudiant',
+                    'status'=>false,
+                ]);
+                die();
+            }
+            if (!$email) {
+                return response()->json([
+                    'message'=>'l\'email ou le numero de telephoe existe deja',
+                    'status'=>false, 
+                ]);
+                die();
+            }
+            if (!$data['email']) {
+                return response()->json([
+                    'message'=>'cette etudiant n\'existe pas',
+                    'status'=>false, 
+                ]);
+            }
+             
+                 $id->update($data);
+                 return response()->json([
+                'message'=>'enseignant Update',
+                'status'=>true,  
+             
+            ]);
+
+        }
+        catch(\Throwable $th)
+        {
+            return response()->json(
+                ['message'=>$th->getMessage(),
+                'status'=>false,
+                'se'=>$email
+                ] );   
+        }
+    }
 }
+
